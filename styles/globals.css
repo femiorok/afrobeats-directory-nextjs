@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* body {
+
+    background-color: #017bfe;
+    background-image: radial-gradient(at 31% 20%, hsla(194, 90%, 61%, 1) 0, hsla(194, 90%, 61%, 0) 50%),
+    radial-gradient(at 54% 9%, hsla(23, 90%, 50%, 1) 0, hsla(23, 90%, 50%, 0) 50%),
+    radial-gradient(at 24% 90%, hsla(265, 91%, 60%, 1) 0, hsla(265, 91%, 60%, 0) 50%),
+    radial-gradient(at 65% 48%, hsla(0, 93%, 64%, 1) 0, hsla(0, 93%, 64%, 0) 50%);
+    background-size: cover;
+    background-repeat: no-repeat;
+
+} */
+
+.landingcontainer {
+  background-image: url('../public/davidowallpaper.webp');
+  background-repeat: no-repeat;
+  background-color: #FFF;
+  background-blend-mode: luminosity, normal;
+}
+
+.top200header {
+  background-image: url('../public/burna-boy.jpg');
+  background-repeat: no-repeat;
+  background-color: #FFF;
+  background-blend-mode: luminosity, normal;
+}
