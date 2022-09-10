@@ -23,7 +23,7 @@ const Hero = () => {
       <span className="relative text-white">Explore Spotify Playlists</span>
       </span>
       </a>
-      <a href="#_" className="relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
+      <a href="/recommendations" className="relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md">
       <span className="w-full h-full bg-gradient-to-br from-red-800 via-yellow-600 to-yellow-500 group-hover:from-red-800 group-hover:via-yellow-600 group-hover:to-yellow-500 absolute"></span>
       <span className="relative px-6 py-3 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
       <span className="relative text-white">Get Recommendations</span>
