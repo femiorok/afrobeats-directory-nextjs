@@ -1,42 +1,38 @@
 import React from 'react'
+import PlaylistInfo from './components/PlaylistInfo'
+import Navbar from './components/Navbar'
 
-const playlists = ({ afroPlaylists, popularUserPlaylists }) => {
-console.log(afroPlaylists, popularUserPlaylists, "check")
+const playlists = ({ afroData }) => {
+console.log(afroData, "hey")
+console.log(afroData.map(category => ([category.name, category.contents.items.map(playlist => playlist.name)])))
 
-  return (
-    <div>playlists</div>
+
+return (
+  <>
+  <Navbar />
+  <div className='bg-slate-900 pl-2'>
+  {afroData.map(category => (
+    <>
+    <h1 className='text-4xl font-semibold  bg-clip-text text-transparent bg-gradient-to-tl from-red-800 via-yellow-600 to-yellow-500'>{category.name}</h1>
+    <div className='flex gap-4 overflow-x-scroll'>
+    {category.contents.items.map((playlist, i) => <PlaylistInfo key={i} name={playlist.name} description={playlist.description} image={playlist.images?.[0]?.[0].url} cover={playlist.cover?.[0]?.url} artist={playlist.artists?.[0]?.name} shareUrl={playlist.shareUrl} />)}
+    </div>
+    </>
+  ))}
+  </div>
+  </>
   )
 }
+
 
 export default playlists
 
 export const getStaticProps = async () => {
-  const categoryId = '0JQ5DAqbMKFNQ0fGp4byGU'
-  const options = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': 'dc0c481150msh1dbe415c1ea2eb0p1b43b2jsn9a3fd1804f9d',
-      'X-RapidAPI-Host': 'spotify-scraper.p.rapidapi.com'
-    }
-  };
-
-  const options2 = {
-    method: 'GET',
-    headers: {
-      'X-RapidAPI-Key': 'dc0c481150msh1dbe415c1ea2eb0p1b43b2jsn9a3fd1804f9d',
-      'X-RapidAPI-Host': 'spotify81.p.rapidapi.com'
-    }
-  };
-
-  const afroData = await fetch(`https://spotify-scraper.p.rapidapi.com/v1/genre/contents?genreId=${categoryId}`, options)
-  const afroPlaylists = await afroData.json();
-  const userPlaylists = await fetch('https://spotify81.p.rapidapi.com/search?q=afrobeats&type=playlist&offset=0&limit=20&numberOfTopResults=20', options2)
-  const popularUserPlaylists = await userPlaylists.json()
+  const data = await fetch('https://afrobeats-library-afro-playlists.firebaseio.com/afroplaylists/-NCCSv5cpQkjWBXXkVpQ/contents/items.json')
+  const afroData = await data.json();
   return {
     props: {
-      afroPlaylists,
-      popularUserPlaylists
+      afroData
     }
   }
-
 }

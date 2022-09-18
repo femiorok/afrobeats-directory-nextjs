@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import Navbar from "./components/Navbar";
 
 const top200ng = () => {
 
@@ -18,6 +19,8 @@ const top200ng = () => {
   }
 
   return (
+    <>
+    <Navbar />
     <div className="bg-slate-900 flex gap-8 flex-wrap justify-center px-[20%]">
       <div className="w-screen h-[15rem] lg:h-[20rem] xl:h-[30rem] bg-cover top200header lg:bg-center xl:bg-top">
         <h1 className="font-extrabold text-white text-5xl text-center sm:text-5xl md:text-5xl lg:text-7xl md:leading-tight pt-20 lg:pt-28 xl:pt-44">
@@ -35,6 +38,7 @@ const top200ng = () => {
       </div>
       </div>)}
     </div>
+    </>
   )
 }
 
