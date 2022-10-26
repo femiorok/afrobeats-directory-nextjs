@@ -14,6 +14,7 @@ const [loadingSong, setLoadingSong] = useState()
 const [getRec, setGetRec] = useState()
 const [recommendations, setRecommendations] = useState()
 const [recommendationSeeds, setRecommendationSeeds] = useState()
+const [accessToken, setAccessToken] = useState()
 
 const generateRandomIndex = (index) => {
     const randomSongIndex = Math.floor( Math.random() * 201 )
@@ -34,6 +35,26 @@ useEffect(() => {
     generateRandomIndex(3)
 }, [])
 
+useEffect(() => {
+    const client_id = 'aa588ad9e37f4b10ae5546505db6a586';
+    const client_secret = 'eea5b02bd08e4dd6befe6052f9f599e9';
+    const url = 'https://accounts.spotify.com/api/token'
+    
+    
+    accessToken && fetch(url, {
+        method: 'POST',
+        body: 'grant_type=client_credentials&client_id=' + client_id + '&client_secret=' + client_secret,
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    })
+    .then(res => res.json())
+    .then(res => {
+        setAccessToken(res.access_token)
+    })
+}, [accessToken])
+
+
 const artist1 = songSeed1?.trackMetadata.artists[0].name.toString()
 const song1 = songSeed1?.trackMetadata.trackName
 const artist2 = songSeed2?.trackMetadata.artists[0].name.toString()
@@ -41,42 +62,23 @@ const song2 = songSeed2?.trackMetadata.trackName
 const artist3 = songSeed3?.trackMetadata.artists[0].name.toString()
 const song3 = songSeed3?.trackMetadata.trackName
 
-const songSelections = {"tracks": {
-                        [artist1]: song1, 
-                        [artist2]: song2,
-                        [artist3]: song3
-                        },
-                        "n": 9
-                    }
-
 const getRecs = () => {
-    setGetRec(true)
+
+    const searchParams1 = `${artist1} ${song1}` 
+    const searchParam2 = `${artist2} ${song2}`
+    const searchParam3 = `${artist3} ${song3}`
+    console.log(searchParams, "params")
+    fetch(`https://api.spotify.com/v1/search?q=${searchParams1}&type=track&limit=1`, {
+        headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json"
+        }
+})
+        .then(response => response.json())
+        .then(response => console.log(response))
+        .catch(err => console.error(err));
 }
-
-useEffect(() => {
-    const getRecommendations = async () => {
-        setRecommendationSeeds(songSelections)
-        const options = {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json',
-                'X-RapidAPI-Key': 'dc0c481150msh1dbe415c1ea2eb0p1b43b2jsn9a3fd1804f9d',
-                'X-RapidAPI-Host': 'spotify-tracks.p.rapidapi.com'
-            },
-            body: recommendationSeeds?.toString()
-            };
-        console.log(recommendationSeeds, "songs!!!!")
-         if (recommendationSeeds) {
-            fetch('https://spotify-tracks.p.rapidapi.com/', options)
-            .then(response => response.json())
-            .then(response => setRecommendations(response))
-            .catch(err => console.error(err));
-            setGetRec(false)
-         }
-    }
-    getRecommendations()
-}, [getRec])
-
 
 const playSong = (num) => {
     setLoadingSong(true)
