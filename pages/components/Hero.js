@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import artist_hero from "../../public/artist_hero.png";
 
 const Hero = () => {
@@ -14,15 +15,12 @@ const Hero = () => {
         The perfect place to explore the world's most buzzing genre.
       </h1>
       <div className="mt-16 flex flex-col md:flex-row gap-4">
-        <a
-          href="/top-200-ng"
-          className="relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md"
-        >
+        <Link href="/top-afrobeats-songs">
           <span className="w-full h-full bg-gradient-to-br from-red-800 via-yellow-600 to-yellow-500 group-hover:from-red-800 group-hover:via-yellow-600 group-hover:to-yellow-500 absolute"></span>
           <span className="relative px-6 py-3 transition-all ease-out bg-gray-900 rounded-md group-hover:bg-opacity-0 duration-400">
             <span className="relative text-white">Top Afrobeats Songs</span>
           </span>
-        </a>
+        </Link>
         <a
           href="/playlists"
           className="relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md"
